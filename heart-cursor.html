@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Cursor Trail</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #fbeffb; /* Light pinkish background */
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 18px;
+            color: red;
+            pointer-events: none;
+            user-select: none;
+            z-index: -1; /* Ensures hearts appear behind the cursor */
+            animation: floatUp 1.5s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-40px) scale(0.6);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    let lastHeartTime = 0; // To control heart frequency
+    const heartInterval = 100; // Minimum time (ms) between hearts
+
+    document.addEventListener("mousemove", function (e) {
+        let now = Date.now();
+        if (now - lastHeartTime < heartInterval) return; // Limit heart frequency
+        lastHeartTime = now;
+
+        let heart = document.createElement("div");
+        heart.innerHTML = "❤️"; 
+        heart.classList.add("heart");
+        document.body.appendChild(heart);
+
+        // Start slightly behind cursor horizontally
+        let offsetX = -20; // Move hearts left by 20px
+        let offsetY = 20; // Move hearts up by 20px
+        heart.style.left = `${e.clientX + offsetX}px`;
+        heart.style.top = `${e.clientY + offsetY}px`;
+
+        // Random movement effect
+        let randomX = (Math.random() - 0.5) * 50;
+        let randomY = (Math.random() - 0.5) * 50;
+        heart.style.transform = `translate(${randomX}px, ${randomY}px)`;
+
+        // Remove heart after animation
+        setTimeout(() => {
+            heart.remove();
+        }, 1500);
+    });
+</script>
+
+</body>
+</html>
