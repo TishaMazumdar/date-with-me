@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Me?</title>
+    <style>
+        body {
+            display:flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            background: url('sunflower-bg.jpg') no-repeat center center/cover;
+            font-family: Arial, sans-serif;
+            padding-top: 100px;
+            overflow: hidden;
+        }
+        h1 {
+            color: #ff8200;
+            margin-top: 100px;
+        }
+        .buttons {
+            position: relative;
+            display: flex;
+            gap: 50px;
+            margin-top: 20px;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #yes {
+            background-color: #7ddf64;
+            color: white;
+        }
+        #no {
+            background-color: #621708;
+            color: white;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1 id="question">Go on a date with me?</h1>
+    <div class="buttons">
+        <button id="yes" onclick="sayYes()">Yes</button>
+        <button id="no" onclick="sayNo()">No</button>
+    </div>
+    <script>
+        let noCount = 0;
+        let questions = [
+            "Are you sure?",
+            "Come on, it's just a date.",
+        ];
+        function sayYes() {
+            document.body.innerHTML = '<h1 style="color: #ff8200;">It\'s a date! 🎉</h1>';
+            confetti({
+                particleCount: 200,
+                spread: 100,
+                origin: {y: 0.6}
+            });
+        }
+        function sayNo() {
+        noCount++;
+        let noButton = $("#no");
+        let yesButton = $("#yes");
+        let questionText = $("#question");
+
+        if (noCount <= 3) {
+            questionText.text(questions[noCount - 1] || "PLEASE!!");
+            yesButton.css("font-size", `${20 + noCount * 10}px`);
+        } else {
+            noButton.css("position", "absolute");
+
+            noButton.on("mouseenter", function () {
+                let currentLeft = noButton.position().left;
+                let currentTop = noButton.position().top;
+
+                let offsetX = (Math.random() > 0.5 ? 1 : -1) * (150 + Math.random() * 100); // Shift by 150-250px
+                let offsetY = (Math.random() > 0.5 ? 1 : -1) * (150 + Math.random() * 100); // Shift by 150-250px
+
+                let newX = Math.max(0, Math.min(window.innerWidth - noButton.width(), currentLeft + offsetX));
+                let newY = Math.max(0, Math.min(window.innerHeight - noButton.height(), currentTop + offsetY));
+
+                noButton.stop().animate({ left: newX + "px", top: newY + "px" }, 300);
+            });
+        }
+    }
+    </script>
+</body>
+</html>
