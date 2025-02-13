@@ -1,7 +1,5 @@
-# Will you go on a date with me?
+# Coding - Valentine Edition
 
-This is a simple website using HTML and CSS. Now, this is a website **FOR FUN**. Consent is important and **NO MEANS NO**. This website was just a fun little way for my girlies to go on a coffee date with me. Again, **CONSENT IS IMPORTANT AND NO MEANS NO**.
-
-If you want to use this website for fun, go ahead.
+Simple projects to enjoy all part of valentine! I plan to put multiple projects in this repo, from cute and sweet to even cynical ones. Just fun small projects for a fun time!
 
 Happy Valentine's everyone!🩷🩷
